@@ -1,0 +1,6 @@
+e · GITIGNORE
+.env
+__pycache__/
+*.db
+.venv/
+ 
