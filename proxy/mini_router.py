@@ -25,15 +25,10 @@ def choose_model(messages: list) -> str:
     """
     last_question = messages[-1]["content"].lower()   # the newest message, in lowercase
 
-    # TODO (Maaz): write the routing rule.
-    #   Send it to STRONG_MODEL if EITHER:
-    #     - the question is long  (more than 40 characters), OR
-    #     - it contains any word from HARD_WORDS
-    #   Otherwise send it to CHEAP_MODEL.
-    #
-    #   Hints:
-    #     len(last_question)                          -> number of characters
-    #     any(word in last_question for word in HARD_WORDS)  -> True if any hard word appears
-    #     join two conditions with "or"
+    # Routing rule: long questions or "hard" words go to the strong model.
+    is_long = len(last_question) > 40
+    has_hard_word = any(word in last_question for word in HARD_WORDS)
 
-    return CHEAP_MODEL   # placeholder: replace with your rule
+    if is_long or has_hard_word:
+        return STRONG_MODEL
+    return CHEAP_MODEL
